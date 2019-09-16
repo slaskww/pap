@@ -1,5 +1,6 @@
 package com.example.paginationandprojection.config;
 
+import org.springframework.boot.actuate.autoconfigure.security.servlet.EndpointRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -46,6 +47,8 @@ public class SecurityLayerConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
+                // Zabezpieczenie endpointów z projektu Spring Boot Actuator
+                .requestMatchers(EndpointRequest.toAnyEndpoint()).hasRole("ADMIN")
                 .antMatchers("/register", "/register/**").permitAll()
                 .antMatchers("/login", "/logout").authenticated()
                 .antMatchers("/user", "/user/**").hasRole("USER")

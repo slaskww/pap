@@ -1,6 +1,8 @@
 package com.example.paginationandprojection.model.repository;
 
 import com.example.paginationandprojection.model.entity.UserEntity;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -69,5 +71,27 @@ public interface UserRepository extends JpaRepository<UserEntity, Long> {
             value = "SELECT u.* FROM example_users u ORDER BY u.create_on DESC LIMIT 100"
     )
     List<UserEntity> findLast100Users();
+
+    /**
+     * Pobieranie listy użytkowników należących do podanych ról
+     *
+     * @param roles lista ról
+     * @param pageable obiekt wytycznych paginowania i sortowania
+     *
+     * @return lista użytkowników
+     */
+    List<UserEntity> findAllByRoles_RoleNameIn(Set<String> roles, Pageable pageable);
+
+    /**
+     * Pobieranie listy użytkowników należących do podanych ról.
+     * Metoda wykorzystuje @EntityGrapth, aby zoptymalizować zapytanie
+     * i od razu pobrać dane użytkowników
+     *
+     * @param roles lista ról
+     * @param pageable obiekt wytycznych paginowania i sortowania
+     * @return lista użytkowników
+     */
+    @EntityGraph(attributePaths = {"details"})
+    List<UserEntity> findAllWithDetailsByRoles_RoleNameIn(Set<String> roles, Pageable pageable);
 
 }

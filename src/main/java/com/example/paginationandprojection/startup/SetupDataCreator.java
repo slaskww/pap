@@ -3,6 +3,7 @@ package com.example.paginationandprojection.startup;
 import com.example.paginationandprojection.model.entity.UserEntity;
 import com.example.paginationandprojection.model.entity.UserRole;
 import com.example.paginationandprojection.model.repository.UserRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -13,6 +14,7 @@ import java.util.stream.Collectors;
 import java.util.stream.LongStream;
 
 @Component
+@Slf4j
 public class SetupDataCreator implements ApplicationRunner {
 
 
@@ -27,9 +29,9 @@ public class SetupDataCreator implements ApplicationRunner {
     @Override
     public void run(ApplicationArguments args) throws Exception {
 
-        System.out.println("--- Tworzenie użytkowników głównych ---");
+        log.info("--- Tworzenie użytkowników głównych ---");
         createMainUsers();
-        System.out.println("--- Tworzenie użytkowników testowych ---");
+        log.info("--- Tworzenie użytkowników testowych ---");
         createTestUsers();
 
     }
@@ -37,7 +39,7 @@ public class SetupDataCreator implements ApplicationRunner {
     private void createUserIfNotExists(String username, String password, String email, String... roles){
 
         userRepository.findByUsername(username).ifPresentOrElse(
-                userEntity -> System.out.println("Użytkownik " + userEntity.getUsername() + " istnieje w bazie"), //ifPresent: jesli istnieje w bazie
+                userEntity -> log.debug("Użytkownik " + userEntity.getUsername() + " istnieje w bazie"), //ifPresent: jesli istnieje w bazie
                 () -> {
                     UserEntity user = new UserEntity();
                     user.setUsername(username);
@@ -45,6 +47,7 @@ public class SetupDataCreator implements ApplicationRunner {
                     user.setEmail(email);
                     user.getRoles().addAll(Arrays.stream(roles).map(s -> "ROLE_".concat(s)).map(s -> new UserRole(s)).collect(Collectors.toSet()));
                     userRepository.save(user);
+                    log.debug("Utworzono użytkownika " + username);
                 }); //orElse: jesli nie, to stwórz set obiektów UserRole na podstawie listy Stringów z nazwami ról
     }
 
