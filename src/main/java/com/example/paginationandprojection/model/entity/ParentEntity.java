@@ -1,4 +1,4 @@
-package com.example.paginationandprojection.entity;
+package com.example.paginationandprojection.model.entity;
 
 import lombok.*;
 
