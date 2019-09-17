@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
-public interface UserRepository extends JpaRepository<UserEntity, Long> {
+public interface UserRepository extends JpaRepository<UserEntity, Long>, ProjectionRepository<Long> {
 
     /**
      * Pobieranie użytkownika po nazwie.
@@ -97,4 +97,6 @@ public interface UserRepository extends JpaRepository<UserEntity, Long> {
 
     @EntityGraph(attributePaths = {"details"})
     Page<UserEntity> findAllUsersWithDetailsByRoles_RoleNameIn(Set<String> roles, Pageable pageable);
+
+
 }
