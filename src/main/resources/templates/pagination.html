@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<style>
+    .pagination {
+        display: inline-block;
+    }
+    .pagination a {
+        color: black;
+        float: left;
+        padding: 5px 5px;
+        text-decoration: none;
+    }
+    .pagination a.active {
+        background-color: gray;
+        color: white;
+        border-radius: 2px;
+    }
+</style>
+<head>
+    <title>Users</title>
+</head>
+<body>
+<h1>Users</h1>
+<table border="1">
+    <thead>
+    <tr>
+        <th>#</th>
+        <th>username</th>
+        <th>email</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="user, iStat : ${users.content}">
+        <td th:text="${iStat.count}"></td>
+        <td th:text="${user.username}" />
+        <td th:text="${user.email}" />
+    </tr>
+    </tbody>
+</table>
+<div th:if="${users.totalPages > 0}" class="pagination"
+     th:each="pageNumber : ${pageNumbers}">
+    <a th:href="@{/examples/repositories/users(size=${users.size}, page=${pageNumber})}"
+       th:text="${pageNumber+1}"
+       th:class="${pageNumber==users.number} ? active"></a>
+</div>
+
+<div>
+    <p>
+        <a th:href="@{/}">pusty</a>
+    </p>
+</div>
+</body>
+</html>
+

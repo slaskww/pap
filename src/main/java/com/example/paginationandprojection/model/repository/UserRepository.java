@@ -1,6 +1,7 @@
 package com.example.paginationandprojection.model.repository;
 
 import com.example.paginationandprojection.model.entity.UserEntity;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -94,4 +95,6 @@ public interface UserRepository extends JpaRepository<UserEntity, Long> {
     @EntityGraph(attributePaths = {"details"})
     List<UserEntity> findAllWithDetailsByRoles_RoleNameIn(Set<String> roles, Pageable pageable);
 
+    @EntityGraph(attributePaths = {"details"})
+    Page<UserEntity> findAllUsersWithDetailsByRoles_RoleNameIn(Set<String> roles, Pageable pageable);
 }
