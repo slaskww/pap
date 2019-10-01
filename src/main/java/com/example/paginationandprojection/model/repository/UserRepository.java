@@ -92,10 +92,10 @@ public interface UserRepository extends JpaRepository<UserEntity, Long>, Project
      * @param pageable obiekt wytycznych paginowania i sortowania
      * @return lista użytkowników
      */
-    @EntityGraph(attributePaths = {"details"})
+    @EntityGraph(attributePaths = {"details"}, type = EntityGraph.EntityGraphType.LOAD)
     List<UserEntity> findAllWithDetailsByRoles_RoleNameIn(Set<String> roles, Pageable pageable);
 
-    @EntityGraph(attributePaths = {"details"})
+    @EntityGraph(attributePaths = {"details"}, type = EntityGraph.EntityGraphType.LOAD)
     Page<UserEntity> findAllUsersWithDetailsByRoles_RoleNameIn(Set<String> roles, Pageable pageable);
 
 
