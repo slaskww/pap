@@ -25,7 +25,7 @@ private String username;
 @Column(nullable = false)
 private String password;
 private String email;
-private Boolean enabled = Boolean.FALSE; //czy użytkownik jest aktywny, domyślnie jest zdezaktywowany
+private Boolean enabled = Boolean.TRUE; //czy użytkownik jest aktywny, domyślnie jest zdezaktywowany
 
     /**
      * relacja oneTone z obiektem UserDetailsEntity

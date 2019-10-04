@@ -3,7 +3,7 @@
     <!--
         Do ustawienia na swoją nazwę aplikacji
     -->
-    <property name="log.file.name" value="spring-transitions"/>
+    <property name="log.file.name" value="pap-qa"/>
     <!--
         Do ustawienia na inny katalog jeżeli to konieczne
     -->

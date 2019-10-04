@@ -6,6 +6,7 @@ import com.example.paginationandprojection.model.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
+import org.springframework.context.annotation.Profile;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
@@ -14,6 +15,7 @@ import java.util.stream.Collectors;
 import java.util.stream.LongStream;
 
 @Component
+@Profile(value = {"dev", "qa"})
 @Slf4j
 public class SetupDataCreator implements ApplicationRunner {
 
