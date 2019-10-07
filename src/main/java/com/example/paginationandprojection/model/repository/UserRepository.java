@@ -99,4 +99,6 @@ public interface UserRepository extends JpaRepository<UserEntity, Long>, Project
     Page<UserEntity> findAllUsersWithDetailsByRoles_RoleNameIn(Set<String> roles, Pageable pageable);
 
 
+    Long countByUsername(String username);
+
 }
