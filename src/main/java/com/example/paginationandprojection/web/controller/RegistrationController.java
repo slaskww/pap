@@ -39,18 +39,42 @@ private final UserService userService;
         bindingResult = validateRegistrationData(bindingResult, userDto);
         if (bindingResult.hasErrors()){
             return "register-form";
-        }
+        } else{
 
-        userService.registerUser(userDto);
-        model.addAttribute("successMsg", "Rejestracja przebiegła pomyślnie!");
+            try{
+              //  userService.registerUser(userDto);
+                model.addAttribute("registerMsg", "Rejestracja przebiegła pomyślnie!");
+            } catch(Exception ex){
+                model.addAttribute("registerMsg", "Coś poszło nie tak!");
+
+            }
+        }
         return "register-result";
     }
 
     private BindingResult validateRegistrationData(BindingResult bindingResult, UserEntityDto userDto){
 
-        //walidacja nazwy użytkownika
-        //walidacja adresu email
-        //walidacja hasła i re-hasłą
+        try{
+            if (userService.countByUsername(userDto.getUsername()) > 0){
+                bindingResult.rejectValue("username", null, "Podana nazwa użytkownika istniej już bazie");
+            }
+        } catch(Exception ex){
+            bindingResult.rejectValue("username", null, "Nie udało się sprawdzić nazwy użytkownika");
+        }
+
+        try {
+            if (userService.countByEmail(userDto.getEmail()) > 0){
+                bindingResult.rejectValue("email", null, "Podany adres email istnieje już w bazie");
+            }
+        } catch(Exception ex){
+            bindingResult.rejectValue("email", null, "Nie udało się sprawdzić adresu email");
+
+        }
+
+        if (!userDto.getPassword().equals(userDto.getRePassword())){
+            bindingResult.rejectValue("password", null, "Pola 'hasło' i 'powtórz hasło' różnią się");
+        }
+
         return bindingResult;
     }
 }

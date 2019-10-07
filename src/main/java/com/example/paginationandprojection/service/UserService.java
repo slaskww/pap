@@ -21,7 +21,15 @@ public class UserService {
 
     public void registerUser(UserEntityDto userDto){
 
-        UserEntity user = UserMapper.toEntity(userDto);
+        UserEntity user = UserMapper.toEntity(userDto, new UserEntity());
         repository.save(user);
+    }
+
+    public int countByUsername(String username){
+        return repository.countByUsername(username);
+    }
+
+    public int countByEmail(String email){
+        return repository.countByEmail(email);
     }
 }

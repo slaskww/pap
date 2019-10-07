@@ -1,10 +1,17 @@
 package com.example.paginationandprojection.dto;
 
+import lombok.*;
+
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
 
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@ToString(exclude = "password")
 public class UserEntityDto {
 
     private Long id;
@@ -14,6 +21,9 @@ public class UserEntityDto {
     @NotBlank(message = "Pole password nie może być puste")
     @Size(min = 8, message = "pole password powinno zawierać minimum 8 znaków")
     private String password;
+    @NotBlank(message = "Pole re-password nie może być puste")
+    @Size(min = 8, message = "pole re-password powinno zawierać minimum 8 znaków")
+    private String rePassword;
     @NotBlank(message = "Pole email nie może być puste")
     @Email
     private String email;
