@@ -1,10 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<html xmlns:th="http://www.thymeleaf.org">
 
-</body>
-</html>
+<div>
+    <p>&copy; Lukasz Pryjma, <span th:text="${#dates.format(#dates.createNow(),'YYYY')}"></span></p>
+</div>

@@ -4,15 +4,17 @@
       xmlns:th="http://www.thymeleaf.org"
       xmlns:https="http://www.springframework.org/schema/jdbc">
 <head>
-    <meta charset="UTF-8">
     <title>Rejestracja</title>
+    <div th:replace="/fragments/head.html"></div>
 </head>
 <body>
 <header>
-    <h1>Rejestracja</h1>
+    <div th:replace="/fragments/menu.html"></div>
 </header>
 <section>
     <h1>Wypełnij dane rejestracyjne</h1>
+</section>
+<section>
     <div>
         <form th:action="@{/register}" th:method="post" th:object="${user}">
             <div th:if="${#fields.hasErrors()}">
@@ -35,7 +37,7 @@
                 </p>
                 <p>
                     <label for="password">Hasło:</label>
-                    <input type="password" , th:field="*{password}" id="password">
+                    <input type="password" th:field="*{password}" id="password">
                 </p>
                 <p>
                     <label for="rePassword">Powtórz hasło:</label>
@@ -52,6 +54,8 @@
         </form>
     </div>
 </section>
-<footer></footer>
+<footer>
+    <div th:replace="/fragments/footer.html"></div>
+</footer>
 </body>
 </html>
