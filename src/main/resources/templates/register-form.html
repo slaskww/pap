@@ -11,47 +11,85 @@
 <header>
     <div th:replace="/fragments/menu.html"></div>
 </header>
-<section>
-    <h1>Wypełnij dane rejestracyjne</h1>
+<section class="section">
+    <div class="container">
+        <h1 class="title">
+            Rejestracja
+        </h1>
+        <h2 class="subtitle">
+            Zarejestruj się, by móc korzystać z <strong>PAP Project</strong>
+        </h2>
+    </div>
 </section>
+
 <section>
-    <div>
-        <form th:action="@{/register}" th:method="post" th:object="${user}">
-            <div th:if="${#fields.hasErrors()}">
-                <fieldset>
-                    <legend>Błędy:</legend>
-                    <div th:each="error : ${#fields.errors()}">
-                        <p th:text="${error}"></p>
+    <div class="container">
+        <div class="columns">
+            <div class="column">
+                <form th:action="@{/register}" th:method="post" th:object="${user}">
+                    <div class="field">
+                        <label class="label" for="username">Nazwa użytkownika</label>
+                        <div class="control has-icons-left">
+                            <input class="input" type="text" th:field="*{username}" id="username">
+                            <span class="icon is-small is-left">
+                            <i class="fas fa-user"></i>
+                        </span>
+                            <p class="help">Podaj nazwę użytkownika</p>
+                        </div>
                     </div>
-                </fieldset>
+                    <div class="field">
+                        <label class="label" for="email">Adres email:</label>
+                        <div class="control has-icons-left">
+                            <input class="input" type="email" th:field="*{email}" id="email">
+                            <span class="icon is-small is-left">
+                            <i class="fas fa-envelope"></i>
+                        </span>
+                            <p class="help">Podaj adres email</p>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label class="label" for="password">Hasło:</label>
+                        <div class="control has-icons-left">
+                            <input class="input" type="password" th:field="*{password}" id="password">
+                            <span class="icon is-small is-left">
+                            <i class="fas fa-lock"></i>
+                        </span>
+                            <p class="help">Podaj hasło</p>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label class="label" for="rePassword">Powtórzone hasło:</label>
+                        <div class="control has-icons-left">
+                            <input class="input" type="password" th:field="*{rePassword}" id="rePassword">
+                            <span class="icon is-small is-left">
+                            <i class="fas fa-lock"></i>
+                        </span>
+                            <p class="help">Podaj ponownie hasło</p>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <div class="control">
+                            <button class="button is-success is-link" type="submit">Zarejestruj</button>
+                        </div>
+                        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                    </div>
+                    <div th:if="${#fields.hasAnyErrors()}">
+                        <div class="content">
+                            <hi class="title">
+                                Wystąpiły błędy
+                            </hi>
+                            <div th:each="error : ${#fields.errors()}">
+                                <p>
+                                    <span class="tag is-danger">!</span>
+                                    <span th:text="${error}"></span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </form>
             </div>
-            <fieldset>
-                <legend>Dane użytkownika</legend>
-                <p>
-                    <label for="username">Nazwa użytkownika:</label>
-                    <input type="text" th:field="*{username}" id="username">
-                </p>
-                <p>
-                    <label for="email">Adres email:</label>
-                    <input type="email" th:field="*{email}" id="email">
-                </p>
-                <p>
-                    <label for="password">Hasło:</label>
-                    <input type="password" th:field="*{password}" id="password">
-                </p>
-                <p>
-                    <label for="rePassword">Powtórz hasło:</label>
-                    <input type="password" th:field="*{rePassword}" id="rePassword">
-                </p>
-                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-            </fieldset>
-            <fieldset>
-                <legend>Akcja</legend>
-                <p>
-                    <input type="submit" value="Zarejestruj">
-                </p>
-            </fieldset>
-        </form>
+            <div class="column"></div>
+        </div>
     </div>
 </section>
 <footer>

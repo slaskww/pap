@@ -10,11 +10,11 @@
 <header>
     <div th:replace="/fragments/menu.html"></div>
 </header>
-<section>
-    <h1>Rejestracja zakończona</h1>
-</section>
-<section>
-    <p th:text="${registerMsg}"></p>
+<section class="section">
+    <div class="container">
+        <h1 class="title">Zakończono rejestrację</h1>
+        <h2 class="subtitle" th:text="${registerMsg}"></h2>
+    </div>
 </section>
 <footer>
     <div th:replace="/fragments/footer.html"></div>

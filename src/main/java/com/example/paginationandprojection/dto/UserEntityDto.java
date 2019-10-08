@@ -15,13 +15,13 @@ import java.time.LocalDate;
 public class UserEntityDto {
 
     private Long id;
-    @NotBlank(message = "Pole username nie może być puste")
+  //  @NotBlank(message = "Pole username nie może być puste")
     @Size(min = 8, max = 12, message = "pole username powinno zawierać od 8 do 12 znaków")
     private String username;
-    @NotBlank(message = "Pole password nie może być puste")
+  //  @NotBlank(message = "Pole password nie może być puste")
     @Size(min = 8, message = "pole password powinno zawierać minimum 8 znaków")
     private String password;
-    @NotBlank(message = "Pole re-password nie może być puste")
+ //   @NotBlank(message = "Pole re-password nie może być puste")
     @Size(min = 8, message = "pole re-password powinno zawierać minimum 8 znaków")
     private String rePassword;
     @NotBlank(message = "Pole email nie może być puste")
