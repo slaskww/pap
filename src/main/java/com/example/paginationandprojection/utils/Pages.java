@@ -9,4 +9,8 @@ public interface Pages {
         String FORM = "/register-form";
         String RESULT = "/register-result";
     }
+
+    interface Login{
+        String FORM = "/login-form";
+    }
 }

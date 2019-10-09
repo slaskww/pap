@@ -1,4 +1,5 @@
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 
 <nav class="navbar is-fixed-top" role="navigation" aria-label="main navigation">
     <div class="container">
@@ -28,9 +29,20 @@
             <div class="navbar-end">
                 <div class="navbar-item">
                     <div class="buttons">
-                        <a class="button is-primary" th:href="@{/register}">
-                            <strong>Zarejestruj</strong>
-                        </a>
+                        <div sec:authorize="${isAnonymous()}">
+                            <a class="button is-primary" th:href="@{/register}">
+                                <strong>Zarejestruj</strong>
+                            </a>
+                            <a class="button is-success" th:href="@{/login}">
+                                <strong>Zaloguj</strong>
+                            </a>
+                        </div>
+                       <div sec:authorize="${isAuthenticated()}">
+                           <form th:method="post" th:action="@{/logout}">
+                               <button class="button is-link" type="submit"><strong>Wyloguj</strong></button>
+                               <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                           </form>
+                       </div>
                     </div>
                 </div>
             </div>

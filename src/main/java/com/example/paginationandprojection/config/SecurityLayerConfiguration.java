@@ -20,7 +20,7 @@ import javax.sql.DataSource;
 public class SecurityLayerConfiguration extends WebSecurityConfigurerAdapter {
 
     private final static String AUTHORITIES_BY_USERNAME_QUERY = "Select username, role_name From example_users_roles Where username = ?";
-    private final static String USERS_BY_USERNAME_QUERY = "Select username, password, enabled From example_users Where username = ?";
+    private final static String USERS_BY_USERNAME_QUERY = "Select username, password ,enabled From example_users Where username = ?";
 
 
 
@@ -56,6 +56,28 @@ public class SecurityLayerConfiguration extends WebSecurityConfigurerAdapter {
     }
 
     //konfiguracja dostępu do ścieżek na podstawie ról
+
+    /**
+     *  We konfiguracji login():
+     *
+     * .loginPage("/login")
+     *. defaultSuccessUrl("/", false)
+     *
+     *  określamy defaultowy zasób na który zostanie przekierowany użytkownik, parametr 'false' mówi tyle,
+     *  że jeśli niezalogowany użytkownik próbował wcześniej odwiedzić zabezpieczony zasób,
+     *  w konsekwencji czego został przekierowany na stronę logowania, to po poprawnej autentykacji
+     *  nie zostanie mu wyświetlony defaultowy zasób "/", lecz zostanie on przekierowany do zasobu, który odwiedzał wcześniej
+     *
+     *  W konfiguracji logout():
+     *
+     *  .logout().logoutUrl("/logout") to URL który wyzwala operację wylogowania (default is "/logout")
+     *
+     *  .logoutSuccessUrl("/login")
+     *   zasób, na który przekierowywany jest user, po wylogowaniu. Jest to zasób  '/login' z dodatkowym parametrem logout.
+     *   Parametr ten wykorzystujemy w login-form.html, by warunkowo, jeśli parametr istnieje, wyświetlić komunikat o poprawnym wylogowaniu
+     *
+     */
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
@@ -65,16 +87,22 @@ public class SecurityLayerConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/static/img/**").permitAll()
                 .antMatchers("/webjars/**").permitAll()
                 .antMatchers("/register", "/register/**").permitAll()
-                .antMatchers("/login", "/logout").authenticated()
+                .antMatchers("/login").permitAll()
+                .antMatchers("/logout").authenticated()
                 .antMatchers("/user", "/user/**").hasRole("USER")
                 .antMatchers("/manager", "/manager/**").hasRole("MANAGER")
                 .antMatchers("/admin", "/admin/**").hasRole("ADMIN")
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
-             // .loginPage()
+                .loginPage("/login")
+                //.usernameParameter("username")//The HTTP parameter to look for the password when performing authentication. Default is username
+                //.passwordParameter("password") //The HTTP parameter to look for the password when performing authentication. Default is password
+                .defaultSuccessUrl("/", false)
                 .and()
-             // .logout().logoutUrl("/main/logout") <-- URL który wyzwala operację wylogowania (default is "/logout")
+               // .logout().logoutUrl("/logout")
+               // .logoutSuccessUrl("/login")
+               // .and()
                 .httpBasic();//Configures HTTP Basic authentication
     }
 

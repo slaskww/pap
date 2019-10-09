@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:https="http://www.springframework.org/schema/jdbc">>
+<head>
+    <title>Logowanie</title>
+    <div th:replace="/fragments/head.html"></div>
+</head>
+<body class="has-navbar-fixed-top">
+<header>
+    <div th:replace="/fragments/menu.html"></div>
+</header>
+<section class="section">
+    <div class="container has-text-centered">
+        <h1 class="title">
+            Logowanie
+        </h1>
+        <h2 class="subtitle">
+            Zaloguj się aby uzyskać dostęp do <strong>zasobów aplikacji</strong>
+        </h2>
+    </div>
+</section>
+<section class="section">
+    <div class="container">
+        <div class="columns">
+            <div class="column"></div>
+            <div class="column">
+                <form th:method="post" th:action="@{/login}">
+                    <div class="field">
+                        <label class="label" for="username">Nazwa użytkownika</label>
+                        <div class="control has-icons-left">
+                            <input class="input" type="text" id="username" name="username">
+                            <span class="icon is-small is-left">
+                                <i class="fas fa-user"></i>
+                            </span>
+                            <p class="help">Podaj nazwę użytkownika</p>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label class="label" for="password">Hasło</label>
+                        <div class="control has-icons-left">
+                            <input class="input" type="password" id="password" name="password">
+                            <span class="icon is-small is-left">
+                                <i class="fas fa-lock"></i>
+                            </span>
+                            <p class="help">Podaj hasło</p>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <div class="control">
+                            <button type="submit" class="button is-success is-link">Zaloguj</button>
+                        </div>
+                        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                    </div>
+                    <div th:if="${param.error}">
+                        <div class="content">
+                            <h2 class="subtitle">
+                                Błąd logowania
+                            </h2>
+                            <p>
+                                <span class="tag is-danger">!</span>
+                                <span>Błędne dane logowania</span>
+                            </p>
+                        </div>
+                    </div>
+                    <div th:if="${param.logout != null}">
+                        <div class="content">
+                            <h2 class="subtitle">
+                                Zostałeś wylogowany
+                            </h2>
+                        </div>
+                    </div>
+                </form>
+
+                </div>
+
+            <div class="column"></div>
+        </div>
+    </div>
+</section>
+<footer class="footer">
+    <div th:replace="/fragments/footer.html"></div>
+</footer>
+</body>
+</html>
