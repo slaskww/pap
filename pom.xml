@@ -79,7 +79,27 @@
             <artifactId>spring-security-test</artifactId>
             <scope>test</scope>
         </dependency>
+        <!-- Zależności do webjars -->
+        <!-- webjars-locator: automatyczne ustalanie wersji bibliotek -->
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>webjars-locator</artifactId>
+            <version>0.30</version>
+        </dependency>
 
+        <!-- Zależności do konkretnych bibliotek zewnętrznych -->
+        <!-- Wyszukujemy na: https://www.webjars.org/ -->
+        <dependency>
+            <groupId>org.webjars.npm</groupId>
+            <artifactId>bulma</artifactId>
+            <version>0.7.5</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>font-awesome</artifactId>
+            <version>5.10.1</version>
+        </dependency>
     </dependencies>
 
     <build>
