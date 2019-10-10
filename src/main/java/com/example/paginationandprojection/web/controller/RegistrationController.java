@@ -43,7 +43,7 @@ public class RegistrationController {
         } else {
 
             try {
-                //  userService.registerUser(userDto);
+                userService.registerUser(userDto);
                 model.addAttribute("registerMsg", "Rejestracja przebiegła pomyślnie!");
             } catch (Exception ex) {
                 model.addAttribute("registerMsg", "Coś poszło nie tak!");

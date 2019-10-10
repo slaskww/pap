@@ -3,6 +3,7 @@ package com.example.paginationandprojection.service;
 import com.example.paginationandprojection.dto.UserEntityDto;
 import com.example.paginationandprojection.dto.mappers.UserMapper;
 import com.example.paginationandprojection.model.entity.UserEntity;
+import com.example.paginationandprojection.model.entity.UserRole;
 import com.example.paginationandprojection.model.repository.UserRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -22,6 +23,8 @@ public class UserService {
     public void registerUser(UserEntityDto userDto){
 
         UserEntity user = UserMapper.toEntity(userDto, new UserEntity());
+        user.setPassword(passwordEncoder.encode(userDto.getPassword()));
+        user.getRoles().add(new UserRole("ROLE_USER"));
         repository.save(user);
     }
 

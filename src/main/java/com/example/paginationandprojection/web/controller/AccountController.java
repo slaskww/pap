@@ -27,8 +27,7 @@ public class AccountController {
     }
 
     @GetMapping
-    String prepareUserAccountPage(Model model, Principal principal){
-
+    public String prepareUserAccountPage(Model model, Principal principal){
         log.info("Zalogowany użytkownik: {}", principal.getName());
         UserEntityDto user = userService.getUserWithDetails(principal.getName());
         model.addAttribute("user", user);
@@ -50,7 +49,7 @@ public class AccountController {
         log.info("Zmiana danych uzytkownika: {}", user.getUsername());
 
         if (bindingResult.hasErrors()){
-            model.addAttribute("edit", true);
+          //  model.addAttribute("edit", true);
             return Pages.User.ACCOUNT;
         }
         log.info("id = {}, username = {}, email = {}, firstName = {}, lastName = {}, PESEL = {}, DateOfBirth = {}",
