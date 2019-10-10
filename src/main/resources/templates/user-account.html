@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:https="http://www.springframework.org/schema/jdbc">
+<head>
+    <title>Konto użytkownika</title>
+    <div th:replace="/fragments/head.html"></div>
+</head>
+<body class="has-navbar-fixed-top">
+<header>
+    <div th:replace="/fragments/menu.html"></div>
+</header>
+<section class="hero is-bold is-medium">
+    <div class="container">
+        <div class="hero-body">
+            <h1 class="title">
+                Cześć, <span th:text="${user.username}"></span>
+            </h1>
+            <h2 class="subtitle">
+                Poniżej znajduje się podsumowanie twoich danych
+            </h2>
+        </div>
+    </div>
+</section>
+<section>
+    <div class="container">
+        <div class="content">
+            <h2 class="subtitle">
+                Twoje dane
+            </h2>
+        </div>
+        <div class="columns">
+            <div class="column">
+                <form th:method="post" th:object="${user}" th:action="@{/account}">
+                    <input type="text" th:field="*{id}" hidden>
+                    <input type="text" th:field="*{username}" hidden>
+                    <input type="email" th:field="*{email}" hidden>
+                    <div th:with="disabled=${edit == null} ? true : false">
+                        <div class="field">
+                            <label class="label" for="firstName">Imię</label>
+                            <div class="control has-icons-left">
+                                <input class="input" th:field="*{firstName}" id="firstName" name="firstName"
+                                       th:disabled="${disabled}">
+                                <span class="icon is-small is-left">
+                                <i class="fas fa-user"></i>
+                            </span>
+                                <p class="help">Twoje imię</span></p>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label class="label" for="lastName">Nazwisko</label>
+                            <div class="control has-icons-left">
+                                <input class="input" th:field="*{lastName}" id="lastName" name="lastName"
+                                       th:disabled="${disabled}">
+                                <span class="icon is-small is-left">
+                                <i class="fas fa-user"></i>
+                            </span>
+                                <p class="help">Twoje nazwisko</p>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label class="label" for="pesel">PESEL</label>
+                            <div class="control has-icons-left">
+                                <input class="input" type="number" th:field="*{pesel}" id="pesel" name="pesel"
+                                       th:disabled="${disabled}">
+                                <span class="icon is-small is-left">
+                                <i class="fas fa-fingerprint"></i>
+                            </span>
+                                <p class="help">Twój PESEL</p>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label class="label" for="dateOfBirth">Data urodzenia</label>
+                            <div class="control has-icons-left">
+                                <input class="input" type="date" th:field="*{dateOfBirth}" id="dateOfBirth"
+                                       name="dateOfBirth"  th:disabled="${disabled}">
+                                <span class="icon is-small is-left">
+                                <i class="fas fa-calendar-day"></i>
+                            </span>
+                                <p class="help">Twoja data urodzenia</p>
+                            </div>
+                        </div>
+                        <div class="field is-grouped">
+                            <th:block th:switch="${disabled}">
+                                <th:block th:case="true">
+                                     <div class="control">
+                                         <button class="button is-success" type="submit" name="edit">
+                                            Edytuj
+                                        </button>
+                                     </div>
+                                </th:block>
+                                <th:block th:case="false">
+                                    <div class="control">
+                                        <button class="button is-success" type="submit" name="save">
+                                            Zapisz
+                                        </button>
+                                    </div>
+                                    <div class="control">
+                                        <button class="button is-success" type="submit" name="cancel">
+                                            Anuluj
+                                        </button>
+                                    </div>
+                                </th:block>
+                            </th:block>
+                        </div>
+                    </div>
+                    <div th:if="${#fields.hasErrors()}">
+                       <div class="content">
+                            <h2 class="subtitle">Wystąpiły błędy:</h2>
+                            <div th:each="error : ${#fields.errors()}">
+                                <p>
+                                    <span class="tag is-danger">!</span>
+                                    <span th:text="${error}"></span>
+                                </p>
+                            </div>
+                       </div>
+                    </div>
+                </form>
+            </div>
+            <div class="column"></div>
+        </div>
+    </div>
+</section>
+<footer class="footer">
+    <div th:replace="/fragments/footer.html"></div>
+</footer>
+</body>
+</html>

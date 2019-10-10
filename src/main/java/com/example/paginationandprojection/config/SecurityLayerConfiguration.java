@@ -89,6 +89,7 @@ public class SecurityLayerConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/register", "/register/**").permitAll()
                 .antMatchers("/login").permitAll()
                 .antMatchers("/logout").authenticated()
+                .antMatchers("/account", "account/**").hasAnyRole("USER", "ADMIN", "MANAGER")
                 .antMatchers("/user", "/user/**").hasRole("USER")
                 .antMatchers("/manager", "/manager/**").hasRole("MANAGER")
                 .antMatchers("/admin", "/admin/**").hasRole("ADMIN")

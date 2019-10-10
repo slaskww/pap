@@ -30,7 +30,7 @@ private Boolean enabled = Boolean.TRUE; //czy użytkownik jest aktywny, domyśln
     /**
      * relacja oneTone z obiektem UserDetailsEntity
      */
-    @OneToOne(mappedBy = "owner", fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "owner", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private UserDetailsEntity details;
 
     /**

@@ -32,4 +32,15 @@ public class UserService {
     public int countByEmail(String email){
         return repository.countByEmail(email);
     }
+
+    public UserEntityDto getUserWithDetails(String username){
+       return UserMapper.toDto(repository.findByUsername(username).get());
+    }
+
+    public void updateUserData(UserEntityDto userDto){
+
+        UserEntity user = repository.getByUsername(userDto.getUsername());
+        user = UserMapper.toEntity(userDto, user);
+        repository.save(user);
+    }
 }

@@ -42,4 +42,13 @@ public class ParentEntity implements Serializable {
     public int hashCode() {
         return Objects.hash(id);
     }
+
+    @PrePersist
+    public void prePersist(){
+        createOn = LocalDateTime.now();
+    }
+    @PreUpdate
+    public void preUpdate(){
+        updateOn = LocalDateTime.now();
+    }
 }

@@ -5,8 +5,8 @@
     <div class="container">
         <div class="navbar-brand">
             <a class="navbar-item" th:href="@{/}">
-                <img class="is-rounded" src="/static/img/logo.png"
-                     alt="wwksals logo"/>
+                    <img class="is-rounded" src="/static/img/icon.png"
+                         alt="wwksals logo"/>
             </a>
         </div>
         <div class="navbar-menu">
@@ -38,10 +38,13 @@
                             </a>
                         </div>
                        <div sec:authorize="${isAuthenticated()}">
-                           <form th:method="post" th:action="@{/logout}">
-                               <button class="button is-link" type="submit"><strong>Wyloguj</strong></button>
-                               <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-                           </form>
+                               <form th:method="post" th:action="@{/logout}">
+                                   <button class="button is-info" type="submit"><strong>Wyloguj</strong></button>
+                                   <sec:csrfInput/>
+                               </form>
+                           <a class="button is-link" th:href="@{/account}">
+                               <strong>Konto</strong>
+                           </a>
                        </div>
                     </div>
                 </div>

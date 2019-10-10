@@ -2,7 +2,8 @@
 <html lang="en"
       xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
-      xmlns:https="http://www.springframework.org/schema/jdbc">>
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+      xmlns:https="http://www.springframework.org/schema/jdbc">
 <head>
     <title>Logowanie</title>
     <div th:replace="/fragments/head.html"></div>
@@ -51,7 +52,7 @@
                         <div class="control">
                             <button type="submit" class="button is-success is-link">Zaloguj</button>
                         </div>
-                        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                        <sec:csrfInput/>
                     </div>
                     <div th:if="${param.error}">
                         <div class="content">
