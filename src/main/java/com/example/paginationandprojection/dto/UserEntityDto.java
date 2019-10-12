@@ -36,4 +36,6 @@ public class UserEntityDto {
     private String pesel;
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDate dateOfBirth;
+
+    private Long profileFileId;
 }

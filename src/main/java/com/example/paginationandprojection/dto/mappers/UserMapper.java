@@ -38,6 +38,11 @@ public class UserMapper {
             userDto.setLastName(user.getDetails().getLastName());
             userDto.setDateOfBirth(user.getDetails().getDateOfBirth());
             userDto.setPesel(user.getDetails().getPesel());
+
+            if (user.getDetails().getProfileFileId() != null){
+                userDto.setProfileFileId(user.getDetails().getProfileFileId());
+            }
+
         }
         return userDto;
     }

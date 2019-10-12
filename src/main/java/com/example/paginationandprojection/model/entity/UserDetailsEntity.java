@@ -1,5 +1,6 @@
 package com.example.paginationandprojection.model.entity;
 
+import com.example.paginationandprojection.model.entity.files.FileEntity;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -11,7 +12,7 @@ import java.time.LocalDate;
 @Table(name = "example_user_details")
 @Getter
 @Setter
-@ToString(exclude = "owner") //korzystamy z wartości exclude, by wyłączyć z metody wyświetlanie obiektu złożonego
+@ToString(exclude = {"owner", "profileFileId"}) //korzystamy z wartości exclude, by wyłączyć z metody wyświetlanie obiektu złożonego
 public class UserDetailsEntity extends ParentEntity {
 
 private String firstName;
@@ -30,4 +31,11 @@ private UserEntity owner; //pole encji
 @Column(name = "owner_id", insertable = false, updatable = false)
 private Long ownerId; //pole kolumny
 
+@OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+@JoinColumn(name = "profile_file_id")
+private FileEntity profileFile;
+
+@Column(name = "profile_file_id", insertable = false, updatable = false)
+private Long profileFileId;
 }
+

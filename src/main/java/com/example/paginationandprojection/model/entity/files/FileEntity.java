@@ -13,7 +13,7 @@ import javax.persistence.*;
 @Getter
 @Setter
 @ToString(exclude = "content")
-public aspect FileEntity extends ParentEntity {
+public class FileEntity extends ParentEntity {
 
     @Column(name = "file_name", nullable = false)
     private String fileName;

@@ -31,6 +31,7 @@ public class AccountController {
         log.info("Zalogowany użytkownik: {}", principal.getName());
         UserEntityDto user = userService.getUserWithDetails(principal.getName());
         model.addAttribute("user", user);
+        model.addAttribute("hasProfileFile", hasProfileFile(user));
         return Pages.User.ACCOUNT;
     }
 
@@ -41,6 +42,7 @@ public class AccountController {
         log.info("Edycja danych uzytkownika: {}", user.getUsername());
         model.addAttribute("user", user);
         model.addAttribute("edit", true);
+        model.addAttribute("hasProfileFile", hasProfileFile(user));
         return Pages.User.ACCOUNT;
     }
 
@@ -49,7 +51,8 @@ public class AccountController {
         log.info("Zmiana danych uzytkownika: {}", user.getUsername());
 
         if (bindingResult.hasErrors()){
-          //  model.addAttribute("edit", true);
+            model.addAttribute("edit", true);
+            model.addAttribute("hasProfileFile", hasProfileFile(user));
             return Pages.User.ACCOUNT;
         }
         log.info("id = {}, username = {}, email = {}, firstName = {}, lastName = {}, PESEL = {}, DateOfBirth = {}",
@@ -61,5 +64,14 @@ public class AccountController {
     @PostMapping(params = {"cancel"})
     public String cancelEditUserData(){
         return "redirect:/account";
+    }
+
+
+    private Boolean hasProfileFile(UserEntityDto userDto){
+
+        if (userDto.getProfileFileId() == null){
+            return false;
+        }
+        return true;
     }
 }
