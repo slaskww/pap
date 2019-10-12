@@ -2,7 +2,7 @@ package com.example.paginationandprojection.utils;
 
 public interface Pages {
 
-    String HOME = "home";
+    String HOME = "githome";
 
     interface Registration{
 
