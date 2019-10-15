@@ -26,5 +26,5 @@ public class FileEntity extends ParentEntity {
     // Użycie adnotacji @Basic jest opcjonalne.
     @Basic(fetch = FetchType.LAZY, optional = false)
     @Column(name = "content", nullable = false)
-    private Byte[] content;
+    private byte[] content;
 }

@@ -1,5 +1,6 @@
 package com.example.paginationandprojection.web.controller;
 
+import com.example.paginationandprojection.dto.FileEntityDto;
 import com.example.paginationandprojection.dto.UserEntityDto;
 import com.example.paginationandprojection.service.UserService;
 import com.example.paginationandprojection.utils.Pages;
@@ -7,12 +8,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
+import java.io.IOException;
 import java.security.Principal;
 
 @Controller
@@ -67,11 +67,39 @@ public class AccountController {
     }
 
 
+    @PostMapping(params = {"upload"})
+    public String uploadFile(@RequestParam MultipartFile file, Principal principal) throws IOException {
+
+    UserEntityDto userDto = userService.getUserWithDetails(principal.getName());
+    log.info("Dodanie pliku do konta użytkownika {}", principal.getName());
+
+        FileEntityDto fileDto = new FileEntityDto();
+        fileDto.setFileName(file.getName());
+        fileDto.setContentType(file.getContentType());
+        fileDto.setContent(file.getBytes());
+
+    if (isFileValid(fileDto)){
+        userDto.setFileEntityDto(fileDto);
+        userService.updateUserData(userDto);
+        System.out.println("zapisano");
+    }
+    return "redirect:/account";
+    }
+
+
     private Boolean hasProfileFile(UserEntityDto userDto){
 
         if (userDto.getProfileFileId() == null){
             return false;
         }
+        return true;
+    }
+
+    private Boolean isFileValid(FileEntityDto fileDto){
+
+        if (fileDto.getFileName() == null || fileDto.getFileName().equals("")){ return false;}
+        if (fileDto.getContentType() == null) {return false;}
+        if (fileDto.getContent() == null){return false;}
         return true;
     }
 }

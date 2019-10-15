@@ -3,6 +3,7 @@ package com.example.paginationandprojection.dto.mappers;
 import com.example.paginationandprojection.dto.UserEntityDto;
 import com.example.paginationandprojection.model.entity.UserDetailsEntity;
 import com.example.paginationandprojection.model.entity.UserEntity;
+import com.example.paginationandprojection.model.entity.files.FileEntity;
 
 public class UserMapper {
 
@@ -10,19 +11,28 @@ public class UserMapper {
         user.setEmail(userDto.getEmail());
         user.setUsername(userDto.getUsername());
 
+        FileEntity file = new FileEntity();
+        file.setFileName(userDto.getFileEntityDto().getFileName());
+        file.setContentType(userDto.getFileEntityDto().getContentType());
+        file.setContent(userDto.getFileEntityDto().getContent());
+
+
         if (user.getDetails() == null){
             UserDetailsEntity details = new UserDetailsEntity();
             details.setDateOfBirth(userDto.getDateOfBirth());
             details.setFirstName(userDto.getFirstName());
             details.setLastName(userDto.getLastName());
             details.setPesel(userDto.getPesel());
+            details.setProfileFile(file);
             details.setOwner(user);
             user.setDetails(details);
+
         } else{
             user.getDetails().setDateOfBirth(userDto.getDateOfBirth());
             user.getDetails().setFirstName(userDto.getFirstName());
             user.getDetails().setLastName(userDto.getLastName());
             user.getDetails().setPesel(userDto.getPesel());
+            user.getDetails().setProfileFile(file);
         }
         return user;
     }

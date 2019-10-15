@@ -121,7 +121,7 @@
             </div>
             <div class="column">
                 <div class="content">
-                    <form enctype="multipart/form-data" method="post">
+                    <form enctype="multipart/form-data" method="post" th:action="@{/account}">
                         <div class="field">
                             <label class="label" for="file">Twoje zdjecie</label>
                             <div class="file has-name">
@@ -164,6 +164,7 @@
                 </div>
                 <div class="content">
                     <div th:if="${hasProfileFile}">
+                        <span>Zaladowano plik</span>
                         <img src="/account/profile-file">
                     </div>
                 </div>

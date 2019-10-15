@@ -38,4 +38,6 @@ public class UserEntityDto {
     private LocalDate dateOfBirth;
 
     private Long profileFileId;
+
+    private FileEntityDto fileEntityDto;
 }
