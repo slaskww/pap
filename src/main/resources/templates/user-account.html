@@ -75,7 +75,7 @@
                             <label class="label" for="dateOfBirth">Data urodzenia</label>
                             <div class="control has-icons-left">
                                 <input class="input" type="date" th:field="*{dateOfBirth}" id="dateOfBirth"
-                                       name="dateOfBirth"  th:disabled="${disabled}">
+                                       name="dateOfBirth" th:disabled="${disabled}">
                                 <span class="icon is-small is-left">
                                 <i class="fas fa-calendar-day"></i>
                             </span>
@@ -85,11 +85,11 @@
                         <div class="field is-grouped">
                             <th:block th:switch="${disabled}">
                                 <th:block th:case="true">
-                                     <div class="control">
-                                         <button class="button is-success" type="submit" name="edit">
+                                    <div class="control">
+                                        <button class="button is-success" type="submit" name="edit">
                                             Edytuj
                                         </button>
-                                     </div>
+                                    </div>
                                 </th:block>
                                 <th:block th:case="false">
                                     <div class="control">
@@ -115,7 +115,7 @@
                                     <span th:text="${error}"></span>
                                 </p>
                             </div>
-                       </div>
+                        </div>
                     </div>
                 </form>
             </div>
@@ -123,24 +123,27 @@
                 <div class="content">
                     <form enctype="multipart/form-data" method="post">
                         <div class="field">
-                            <div class="label" for="file">Twoje zdjecie</div>
+                            <label class="label" for="file">Twoje zdjecie</label>
                             <div class="file has-name">
                                 <label class="file-label">
                                     <input class="file-input" type="file" name="file" id="file" accept="image/*">
+                                    <span class="file-cta">
                                     <span class="file-icon">
                                         <i class="fas fa-upload"></i>
                                     </span>
                                     <span class="file-label">
-                                        <p class="help">Wybierz zdjęcie</p>
+                                       <p class="help"> Wybierz zdjęcie</p>
+                                    </span>
                                     </span>
                                     <span class="file-name">
-                                        ------
+                                        ...
                                     </span>
                                 </label>
                             </div>
 
                             <script>
-                                var fileInput = document.querySelector('#file');
+                                //  var fileInput = document.querySelector('#file');
+                                var fileInput = document.getElementById("file");
                                 fileInput.onchange = function () {
                                     if (fileInput.files.length > 0) {
                                         var fileName = document.querySelector('.file .file-name');
