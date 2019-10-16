@@ -2,6 +2,7 @@ package com.example.paginationandprojection.service;
 
 import com.example.paginationandprojection.dto.UserEntityDto;
 import com.example.paginationandprojection.dto.mappers.UserMapper;
+import com.example.paginationandprojection.model.entity.UserDetailsEntity;
 import com.example.paginationandprojection.model.entity.UserEntity;
 import com.example.paginationandprojection.model.entity.UserRole;
 import com.example.paginationandprojection.model.repository.UserDetailsEntityRepository;
@@ -51,4 +52,7 @@ public class UserService {
         userRepository.save(user);
     }
 
+    public UserDetailsEntity getDetails(String username){
+       return userDetailsRepository.getWithProfileFileByOwnerUsername(username);
+    }
 }

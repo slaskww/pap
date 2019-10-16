@@ -5,6 +5,10 @@ import com.example.paginationandprojection.dto.UserEntityDto;
 import com.example.paginationandprojection.service.UserService;
 import com.example.paginationandprojection.utils.Pages;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.core.io.ByteArrayResource;
+import org.springframework.core.io.Resource;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -84,6 +88,38 @@ public class AccountController {
         System.out.println("zapisano");
     }
     return "redirect:/account";
+    }
+
+    @GetMapping("/profile-file")
+    public ResponseEntity<Resource> getUserFile(Principal principal){
+
+        UserEntityDto userDto = userService.getUserWithDetails(principal.getName());
+        log.info("Pobieranie zdjęcia profilowego dla użytkownika: {}", principal.getName());
+
+        if (hasProfileFile(userDto)){
+            log.info("Zwrócono zdjęcie profilowe użytkownika: {}", principal.getName());
+            return buildFileResponse(userDto);
+        } else{
+            log.info("Nie zwrócono zdjęcia profilowego użytkownika: {}", principal.getName());
+            return buildNoFileResponse(userDto);
+        }
+    }
+
+    private ResponseEntity<Resource> buildNoFileResponse(UserEntityDto userDto){
+        return ResponseEntity.noContent().build();
+    }
+
+
+    private ResponseEntity<Resource> buildFileResponse(UserEntityDto userDto){
+
+        FileEntityDto fileDto = userDto.getFileEntityDto();
+        ByteArrayResource content = new ByteArrayResource(fileDto.getContent());
+
+       return ResponseEntity
+                .ok()
+                .contentType(MediaType.valueOf(fileDto.getContentType()))
+                .header("Content-Disposition", String.format("filename=%s", fileDto.getFileName()))
+                .body(content);
     }
 
 
