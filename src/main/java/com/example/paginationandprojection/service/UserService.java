@@ -48,8 +48,14 @@ public class UserService {
     public void updateUserData(UserEntityDto userDto){
 
         UserEntity user = userRepository.getByUsername(userDto.getUsername());
+        UserDetailsEntity userDetails = user.getDetails();
         user = UserMapper.toEntity(userDto, user);
-        userRepository.save(user);
+
+        if (userDetails == null){
+            userRepository.save(user);
+        } else {
+            userDetailsRepository.save(user.getDetails());
+        }
     }
 
     public UserDetailsEntity getDetails(String username){

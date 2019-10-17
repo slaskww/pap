@@ -78,11 +78,11 @@ public class AccountController {
     log.info("Dodanie pliku do konta użytkownika {}", principal.getName());
 
         FileEntityDto fileDto = new FileEntityDto();
-        fileDto.setFileName(file.getName());
+        fileDto.setFileName(file.getOriginalFilename());
         fileDto.setContentType(file.getContentType());
         fileDto.setContent(file.getBytes());
 
-    if (isFileValid(fileDto)){
+    if (isFileValid(file)){
         userDto.setFileEntityDto(fileDto);
         userService.updateUserData(userDto);
         System.out.println("zapisano");
@@ -131,11 +131,12 @@ public class AccountController {
         return true;
     }
 
-    private Boolean isFileValid(FileEntityDto fileDto){
+    private Boolean isFileValid(MultipartFile file) throws IOException {
 
-        if (fileDto.getFileName() == null || fileDto.getFileName().equals("")){ return false;}
-        if (fileDto.getContentType() == null) {return false;}
-        if (fileDto.getContent() == null){return false;}
+        if (file.isEmpty()){return false;}
+        if (file.getName() == null || file.getName().equals("")){ return false;}
+        if (file.getContentType() == null) {return false;}
+        if (file.getBytes()== null) {return false;}
         return true;
     }
 }
