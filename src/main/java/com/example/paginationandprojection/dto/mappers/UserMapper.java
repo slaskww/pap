@@ -12,10 +12,14 @@ public class UserMapper {
         user.setEmail(userDto.getEmail());
         user.setUsername(userDto.getUsername());
 
-        FileEntity file = new FileEntity();
-        file.setFileName(userDto.getFileEntityDto().getFileName());
-        file.setContentType(userDto.getFileEntityDto().getContentType());
-        file.setContent(userDto.getFileEntityDto().getContent());
+        FileEntity file = null;
+
+        if (userDto.getFileEntityDto() != null){
+            file = new FileEntity();
+            file.setFileName(userDto.getFileEntityDto().getFileName());
+            file.setContentType(userDto.getFileEntityDto().getContentType());
+            file.setContent(userDto.getFileEntityDto().getContent());
+        }
 
 
         if (user.getDetails() == null) {
