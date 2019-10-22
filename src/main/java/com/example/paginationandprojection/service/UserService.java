@@ -58,7 +58,4 @@ public class UserService {
         }
     }
 
-    public UserDetailsEntity getDetails(String username){
-       return userDetailsRepository.getWithProfileFileByOwnerUsername(username);
-    }
 }
