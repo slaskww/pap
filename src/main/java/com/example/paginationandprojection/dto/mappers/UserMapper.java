@@ -13,6 +13,7 @@ public class UserMapper {
         user.setUsername(userDto.getUsername());
 
         FileEntity file = null;
+        UserDetailsEntity details = new UserDetailsEntity();
 
         if (userDto.getFileEntityDto() != null){
             file = new FileEntity();
@@ -20,16 +21,18 @@ public class UserMapper {
             file.setFileName(fileDto.getFileName());
             file.setContentType(fileDto.getContentType());
             file.setContent(fileDto.getContent());
+
+            if(user.getDetails() == null)
+            details.setProfileFile(file);
+            else user.getDetails().setProfileFile(file);
+
         }
 
-
         if (user.getDetails() == null) { //przypadek inicjalny, tj. gdy nowo zarejestrowany user nie uzupełnił jeszcze danych szczegółowych
-            UserDetailsEntity details = new UserDetailsEntity();
             details.setDateOfBirth(userDto.getDateOfBirth());
             details.setFirstName(userDto.getFirstName());
             details.setLastName(userDto.getLastName());
             details.setPesel(userDto.getPesel());
-            details.setProfileFile(file);
             details.setOwner(user);
             user.setDetails(details);
 
@@ -38,7 +41,6 @@ public class UserMapper {
             user.getDetails().setFirstName(userDto.getFirstName());
             user.getDetails().setLastName(userDto.getLastName());
             user.getDetails().setPesel(userDto.getPesel());
-            user.getDetails().setProfileFile(file);
         }
         return user;
     }
