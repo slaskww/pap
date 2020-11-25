@@ -78,11 +78,11 @@ public class AccountController {
     log.info("Dodanie pliku do konta użytkownika {}", principal.getName());
 
         FileEntityDto fileDto = new FileEntityDto();
+
+    if (isFileValid(file)){
         fileDto.setFileName(file.getOriginalFilename());
         fileDto.setContentType(file.getContentType());
         fileDto.setContent(file.getBytes());
-
-    if (isFileValid(file)){
         userDto.setFileEntityDto(fileDto);
         userService.updateUserData(userDto);
         System.out.println("zapisano");
